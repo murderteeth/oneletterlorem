@@ -23,7 +23,7 @@
     <br>
     <div class="button-group">
         <button onclick="generateIpsum()">Generate</button>
-        <button onclick="copyToClipboard()">Copy</button>
+        <button id="copyButton" onclick="copyToClipboard()">Copy</button>
     </div>
     <pre id="output"></pre>
 
@@ -59,7 +59,13 @@
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
-            alert('One letter lorem copied to clipboard!');
+            
+            const copyButton = document.getElementById('copyButton');
+            const originalText = copyButton.textContent;
+            copyButton.textContent = 'Copied';
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+            }, 3000);
         }
         
         // Generate initial output

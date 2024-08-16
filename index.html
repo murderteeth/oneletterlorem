@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="One letter lorem Ipsum text generator">
+    <title>One Letter Lorem</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        input, button { margin: 10px 5px 10px 0; }
+        #output { white-space: pre-wrap; word-break: break-all; margin-top: 20px; }
+        .button-group { display: flex; }
+    </style>
+</head>
+<body>
+    <h1>One Letter Lorem</h1>
+    <p>One letter lorem Ipsum text generator</p>
+    <label for="char">Letter:</label>
+    <input type="text" id="char" value="x" maxlength="1">
+    <br>
+    <label for="length">Length:</label>
+    <input type="number" id="length" value="400" min="1">
+    <br>
+    <div class="button-group">
+        <button onclick="generateIpsum()">Generate</button>
+        <button onclick="copyToClipboard()">Copy</button>
+    </div>
+    <pre id="output"></pre>
+
+    <script>
+        function generateIpsum() {
+            const char = document.getElementById('char').value || 'x';
+            const length = parseInt(document.getElementById('length').value) || 400;
+            
+            let result = '';
+            let remainingChars = length;
+            
+            while (remainingChars > 0) {
+                let wordLength = Math.min(Math.floor(Math.random() * 8) + 1, remainingChars);
+                
+                result += char.repeat(wordLength);
+                remainingChars -= wordLength;
+                
+                if (remainingChars > 0) {
+                    result += ' ';
+                    remainingChars--;
+                }
+            }
+            
+            document.getElementById('output').textContent = result;
+            console.log(`Generated text length: ${result.length}`);
+        }
+        
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const textArea = document.createElement('textarea');
+            textArea.value = output.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Text copied to clipboard!');
+        }
+        
+        // Generate initial output
+        generateIpsum();
+    </script>
+</body>
+</html>

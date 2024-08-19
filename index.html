@@ -5,31 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="One letter lorem Ipsum text generator">
     <title>One Letter Lorem</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        input, button { margin: 10px 5px 10px 0; }
-        #output { white-space: pre-wrap; word-break: break-all; margin-top: 20px; }
-        .button-group { display: flex; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>One Letter Lorem</h1>
-    <p>One letter lorem Ipsum text generator</p>
-    <label for="char">Letter:</label>
-    <input type="text" id="char" value="x" maxlength="1">
-    <br>
-    <label for="length">Length:</label>
-    <input type="number" id="length" value="400" min="1">
-    <br>
-    <div class="button-group">
-        <button onclick="generateIpsum()">Generate</button>
-        <button id="copyButton" onclick="copyToClipboard()">Copy</button>
+<body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col justify-center items-center p-4">
+    <h1 class="text-4xl font-bold mb-4">One Letter Lorem</h1>
+    <p class="mb-4">One letter lorem Ipsum text generator</p>
+    <div class="mb-4">
+        <label for="char" class="block mb-2">Letter:</label>
+        <input type="text" id="char" value="." maxlength="1" class="p-2 text-gray-900 rounded">
     </div>
-    <pre id="output"></pre>
+    <div class="mb-4">
+        <label for="length" class="block mb-2">Length:</label>
+        <input type="number" id="length" value="400" min="1" class="p-2 text-gray-900 rounded">
+    </div>
+    <div class="flex space-x-4 mb-4">
+        <button onclick="generateIpsum()" class="p-2 bg-blue-500 rounded hover:bg-blue-700 transition">Generate</button>
+        <button id="copy-btn" onclick="copyToClipboard()" class="p-2 bg-green-500 rounded hover:bg-green-700 transition">Copy</button>
+    </div>
+    <pre id="output" class="bg-gray-800 p-4 rounded w-full max-w-3xl text-lg whitespace-pre-wrap break-words"></pre>
 
     <script>
         function generateIpsum() {
-            const char = document.getElementById('char').value || 'x';
+            const char = document.getElementById('char').value || '.';
             const length = parseInt(document.getElementById('length').value) || 400;
             
             let result = '';
@@ -60,11 +57,11 @@
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            const copyButton = document.getElementById('copyButton');
-            const originalText = copyButton.textContent;
-            copyButton.textContent = 'Copied';
+            const copyBtn = document.getElementById('copy-btn');
+            copyBtn.textContent = 'Copied';
+            
             setTimeout(() => {
-                copyButton.textContent = originalText;
+                copyBtn.textContent = 'Copy';
             }, 3000);
         }
         
